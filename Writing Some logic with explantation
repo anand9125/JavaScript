@@ -1,0 +1,67 @@
+
+const express = require('express')
+const app = express()
+const port = 3000
+function sum(n){
+    let ans=0;
+    for(let i=0;i<=n;i++){
+        ans+=i;
+    }return ans;
+}
+
+app.get('/', (req, res) => {
+    const n=req.query.n;
+    const ans=sum(n);
+  res.send('Hello World!  ' +ans)
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+explaination  ::
+1. Importing the Required Module
+javascript
+Copy code
+const express = require('express')
+This line imports the Express.js module, which is a framework for building web applications in Node.js.
+2. Creating an Express Application
+javascript
+Copy code
+const app = express()
+app is an instance of the Express application. This object is used to configure the web server and handle incoming requests.
+3. Defining the Port
+javascript
+Copy code
+const port = 3000
+port defines the port number on which the web server will listen. In this case, the server will listen on port 3000.
+4. Defining the sum Function
+javascript
+Copy code
+function sum(n){
+    let ans=0;
+    for(let i=0;i<=n;i++){
+        ans+=i;
+    }
+    return ans;
+}
+This function calculates the sum of all numbers from 0 to n. It uses a for loop to iterate through the numbers and adds them to the variable ans, which is returned as the result.
+5. Handling a GET Request
+javascript
+Copy code
+app.get('/', (req, res) => {
+    const n=req.query.n;
+    const ans=sum(n);
+    res.send('Hello World!  ' + ans)
+})
+This block sets up a route handler for GET requests to the root URL (/).
+req.query.n extracts the n parameter from the query string of the URL (e.g., /n?5 would have n = 5).
+The sum(n) function is called with the value of n to calculate the sum.
+The server responds with "Hello World!" followed by the result of the sum.
+6. Starting the Server
+javascript
+Copy code
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+This line starts the server and listens on the specified port (3000). Once the server is up and running, it logs a message to the console indicating that it is listening.
