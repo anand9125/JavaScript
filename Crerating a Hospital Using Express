@@ -1,0 +1,62 @@
+const express = require("express");
+const app = express();
+const users = [
+  {
+    name: "john",
+    kidneys: [
+      {
+        helthy: false
+      },
+    ],
+  },
+];
+app.use(express.json());
+app.get("/", function (req, res) {
+  const johnKideny = users[0].kidneys;
+  const numberOfKidney = johnKideny.length;
+  let numbrOFHelthykidney = 0;
+  for (let i = 0; i < johnKideny.length; i++) {
+    if (johnKideny[i].helthy) {
+      numbrOFHelthykidney = numbrOFHelthykidney + 1;
+    }
+  }
+  const numberOfUnhelthyKidneys = numberOfKidney - numbrOFHelthykidney;
+
+  res.json({
+    
+    numberOfKidney,
+    numbrOFHelthykidney,
+    numberOfUnhelthyKidneys,
+  });
+});
+app.post('/',function(req,res){
+    const isHelthy=req.body.isHelthy;
+    users[0].kidneys.push({
+        helthy:isHelthy
+    })
+    res.json({
+        mesg:"done!"
+    })
+})
+app.put('/', function (req,res){
+   for(let i=0;i<users[0].kidneys.length;i++){
+    users[0].kidneys[i].helthy=true;
+   } 
+   res.json({});
+})
+app.delete('/' , function(req,res){
+    const newKidneys=[];
+    for(let i=0;i<users[0].kidneys.length;i++){
+        if(users[0].kidneys[i].helthy){
+            newKidneys.push({
+                helthy:true
+            })
+        }
+    }
+    users[0].kidneys=newKidneys;
+    res.json({mesg:"done"});
+        
+    
+})
+
+app.listen(3000);
