@@ -1,3 +1,18 @@
+const zod = require("zod");
+function inputValidation(obj){
+    const schema= zod.object({
+        email:zod.string().email(),
+        password: zod.string().min(8)
+    })
+    const response=schema.safeParse(obj);
+    console.log(response);
+}inputValidation({
+    email: "achaudharyskn@gmail.com",
+    password:"12345678"
+})
+
+Best eplainaation 
+
 const express= require("express");
 const zod = require("zod")
 const app= express();
