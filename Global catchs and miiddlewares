@@ -1,0 +1,15 @@
+const express= require("express");
+const app= express();
+app.use(express.json());
+app.post("/",function (req,res){
+    const kidneys= req.body.kidneys;
+    const kidneyslength= kidneys.length;
+    res.send("your have " +kidneyslength+ " kidneys")
+})
+app.use(function(err,req,res,next){
+    res.json({
+        mesg:"Sorry Somthing mess up with our server"
+    })
+})
+
+app.listen(3000);
