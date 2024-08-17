@@ -1,0 +1,27 @@
+const express= require("express");
+const app= express();
+const mongoose = require("mongoose");
+app.use(express.json())
+
+mongoose.connect("mongodb+srv://akdon9936:MrP348iZ4clUmo1f@cluster0.0vifew6.mongodb.net/userappnew")
+const User= mongoose.model("Users" ,{ name : String ,email:String , password :String })
+app.post("/signin" ,async function (req,res){
+    const name =req.body.name ;
+    const username= req.body.username;
+    const password= req.body.password;
+    const existUser= await User.findOne({email:username})
+    if(existUser){
+       return res. status(404).send("USer is exist ")
+    }
+    const user= new User({
+        name : name,
+        email: username,
+        password:password
+})
+
+user.save();
+res.json({
+    mesg:"User is Sign in "
+})
+})
+app.listen(3000);
