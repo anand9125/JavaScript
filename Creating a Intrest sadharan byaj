@@ -1,0 +1,66 @@
+
+frontend
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function populateDiv(){
+            const a=document.getElementById("Principal").value;
+            const b=document.getElementById("Rate").value;
+            const c= document.getElementById("Time").value
+            const response = await fetch("http://localhost:3000/?principle=" + a +"&rate=" +b+"&time="+c)
+             const ans= await response.text();
+             document.getElementById("final sum").innerHTML=ans;
+        }
+
+    </script>
+
+
+
+    <input id="Principal" type="text" placeholder="Principal">
+    <br><br>
+    <input id="Rate" type="text" placeholder="Rate">
+    <br> <br>    
+    <input id="Time"  type="text" placeholder="Time(in Years)">
+    <br><br>
+    <button onclick="populateDiv()"> Calculate Total Amount</button>
+   
+    <div id="final sum">Heelo</div>
+</body>
+</html>
+
+
+
+
+// backend
+
+
+const express = require("express")
+const cors = require("cors");
+
+const app = express();
+app.use(cors()); // Enable CORS for all routes
+ app.get("/" ,function(req,res){
+    const principle = req.query.principle;
+    const rate= req.query.rate;
+    const time= req.query.time;
+    const interest = (principle*rate*time)/100;
+    const finalCast = parseInt(principle)+parseInt(interest);
+    res.json ({
+      "Total Amount" : finalCast,
+      "Intrest" : interest
+    })
+
+    
+      
+    
+
+
+})
+
+app.listen(3000)
