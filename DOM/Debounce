@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let timeout;
+        function debounce(){
+            clearTimeout(timeout);
+            timeout=setTimeout(function(){
+              populateDiv()
+            },1000);
+
+            }
+        async function populateDiv(){
+            const a=document.getElementById("Principal").value;
+            const b=document.getElementById("Rate").value;
+            const c= document.getElementById("Time").value
+            const response = await fetch("http://localhost:3000/?principle=" + a +"&rate=" +b+"&time="+c)
+             const ans= await response.text();
+             document.getElementById("final sum").innerHTML=ans;
+        }
+
+    </script>
+
+
+
+    <input id="Principal" type="text" placeholder="Principal">
+    <br><br>
+    <input id="Rate" type="text" placeholder="Rate">
+    <br> <br>    
+    <input id="Time"  type="text" placeholder="Time(in Years)">
+    <br><br>
+    <button onclick="populateDiv()"> Calculate Total Amount</button>
+   
+    <div id="final sum"></div>
+</body>
+</html>
